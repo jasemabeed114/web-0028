@@ -1,0 +1,131 @@
+{{ define "main" }}
+
+<!-- Breadcrumb -->
+<div class="mt-2">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="/" itemprop="item">
+                        <span itemprop="name">{{ .Site.Params.terms.term_home }}</span>
+                    </a>
+                    <meta itemprop="position" content="1">
+                </li>
+                <li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">{{ .Title }}</span>
+                    <meta itemprop="position"  content="2">
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- [END] Breadcrumb -->
+
+<!-- Content -->
+<div>
+    <div class="container">
+        <h1 class="h3 mb-3">{{ .Title }}</h1>
+        <p>{{ .Params.description }}</p>
+
+        <div class="form-row">
+            <div class="col-12 col-lg-8">
+                <!-- Image -->
+                <div class="card shadow-sm mb-2">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="img-fluid" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="card-footer py-2 px-3">
+                        <h2 class="h5 my-3 mx-1">{{ .Title }}</h2>
+
+                        <div class="table-responsive">
+                            <table class="table table-sm w-100">
+                                <tr>
+                                    <th>{{ .Site.Params.terms.detail_resolution }}</th>
+                                    <td> : </td>
+                                    <td>{{ .Params.image_width }} &times; {{ .Params.image_height }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ .Site.Params.terms.detail_source }}</th>
+                                    <td> : </td>
+                                    <td>{{ .Params.source_url }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ .Site.Params.terms.detail_keyword }}</th>
+                                    <td> : </td>
+                                    <td>
+                                        {{- range .Params.tags -}}
+                                            {{ . }}
+                                        {{- end -}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- [END] Image -->
+            </div>
+            <div class="col-12 col-lg-4">
+                <!-- Download -->
+                <div class="card shadow-sm mb-2">
+                    <div class="card-body p-2">
+                        <div>
+                            <a href="{{ .Params.image }}" class="btn btn-primary btn-block" target="_blank" rel="nofollow noopener">{{ .Site.Params.terms.detail_save }}</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- [END] Download -->
+                <div class="mb-2">
+                    <h3 class="h6 mb-2">{{ .Site.Params.terms.detail_other_keywords }}</h3>
+
+                    {{ range .Site.Data.tags | shuffle | first 10 }}
+                        <a href="{{ . | urlize | relURL }}" class="btn btn-sm btn-outline-secondary mb-1">{{ . }}</a>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Share -->
+        <h2 class="h5">{{ .Site.Params.terms.detail_share }}</h2>
+        <div class="mb-2">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}" target="_blank" rel="nofollow noopener" class="btn btn-sm mb-1 btn-primary btn-facebook">
+                <span class="fab fa-facebook fa-fw"></span>&nbsp;Facebook
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}" target="_blank" rel="nofollow noopener" class="btn btn-sm mb-1 btn-primary btn-twitter">
+                <span class="fab fa-twitter fa-fw"></span>&nbsp;Twitter
+            </a>
+            <a href="https://wa.me/?text={{ .Permalink }}" target="_blank" rel="nofollow noopener" class="btn btn-sm mb-1 btn-primary btn-whatsapp">
+                <span class="fab fa-whatsapp fa-fw"></span>&nbsp;WhatsApp
+            </a>
+            <a href="https://t.me/share/url?url={{ .Permalink }}" target="_blank" rel="nofollow noopener" class="btn btn-sm mb-1 btn-primary btn-telegram">
+                <span class="fab fa-telegram fa-fw"></span>&nbsp;Telegram
+            </a>
+            <a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonPin" data-pin-media="{{ .Params.thumbnail }}" data-pin-tall="true"></a>
+        </div>
+        <!-- [END] Share -->
+
+        <!-- Related images -->
+        <h2 class="h5">{{ .Site.Params.terms.detail_related_images }}</h2>
+
+        <div class="card-columns">
+            {{ $related := .Site.RegularPages.RelatedIndices . "tags" | shuffle | first 12 }}
+            {{ range $related }}
+                <div class="card text-center content-container">
+                    <a href="{{ .RelPermalink }}">
+                        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="card-img-top" loading="lazy">
+                    </a>
+                    <div class="card-body p-2 content-title">
+                        <a href="{{ .RelPermalink }}">
+                            <span class="text-muted limit-1-lines">{{ .Title }}</span>
+                        </a>
+                    </div>
+                </div>
+            {{ end }}
+        </div>
+        <!-- [END] Related images -->
+    </div>
+</div>
+<!-- [END] Content -->
+
+{{ end }}

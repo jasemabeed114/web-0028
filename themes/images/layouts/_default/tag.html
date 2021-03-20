@@ -1,0 +1,52 @@
+{{ define "main" }}
+
+<!-- Breadcrumb -->
+<div class="mt-2">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="/" itemprop="item">
+                        <span itemprop="name">{{ .Site.Params.terms.term_home }}</span>
+                    </a>
+                    <meta itemprop="position" content="1">
+                </li>
+                <li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">{{- $name := split .Title " " }} {{ .Title }}</span>
+                    <meta itemprop="position" content="2">
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- [END] Breadcrumb -->
+
+<!-- Search result -->
+<div>
+    <div class="container">
+        <h1 class="h3 mb-3">
+            {{ len .Data.Pages }}+ {{ .Title }}
+        </h1>
+        <p>
+            {{ replace .Site.Params.terms.search_result_subtitle "#q" .Title }}
+        </p>
+
+        <div class="card-columns">
+            {{ range first 50 .Data.Pages | shuffle }}
+                <div class="card text-center content-container">
+                    <a href="{{ .RelPermalink }}">
+                        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="card-img-top" loading="lazy">
+                    </a>
+                    <div class="card-body p-2 content-title">
+                        <a href="{{ .RelPermalink }}">
+                            <span class="text-muted limit-1-lines">{{ .Title }}</span>
+                        </a>
+                    </div>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+<!-- [END] Search result -->
+
+{{ end }}

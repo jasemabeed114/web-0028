@@ -1,0 +1,48 @@
+$theme-colors: (
+	"facebook": #4267B2,
+	"twitter": #1DA1F2,
+	"whatsapp": #25D366,
+	"telegram": #0088CC,
+	"pinterest": #C8232C
+);
+
+@import "bootstrap/bootstrap";
+
+body {
+    padding-top: 56px;
+}
+
+.limit-1-lines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+div.card.content-container {
+	box-shadow: $box-shadow-sm;
+	transition: all .3s;
+
+	&:hover {
+		box-shadow: $box-shadow-lg;
+	}
+}
+
+div.content-title {
+	a:hover {
+		text-decoration: none;
+	}
+}
+
+.card-columns {
+	@include media-breakpoint-up(sm) {
+		column-count: 3;
+	}
+	@include media-breakpoint-up(md) {
+		column-count: 4;
+	}
+	@include media-breakpoint-up(lg) {
+		column-count: 5;
+	}
+}

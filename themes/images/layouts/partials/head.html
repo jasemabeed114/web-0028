@@ -1,0 +1,118 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ "/favicon.ico" | relURL }}">
+
+    <title>
+        {{- if .Page.IsHome -}}
+            {{ .Site.Title }} - {{ .Site.Params.terms.home_meta_title }}
+        {{- else if eq .Type "tags" -}}
+            {{ len .Data.Pages }}+ {{ .Title }}
+        {{- else -}}
+            {{ .Title }}
+        {{- end -}}
+    </title>
+
+    {{ if .Page.IsHome }}
+        <meta name="description" content="{{ .Site.Params.terms.home_meta_description }}">
+        <link rel="canonical" href="{{ .Site.BaseURL }}">
+
+        <meta property="og:title"           content="{{ .Site.Title }} - {{ .Site.Params.terms.home_meta_title }}">
+        <meta property="og:description"     content="{{ .Site.Params.terms.home_meta_description }}">
+        <meta property="og:type"            content="website">
+        <meta property="og:locale"          content="{{ .Site.Params.open_graph_locale }}">
+        <meta property="og:site_name"       content="{{ .Site.Title }}">
+        <meta property="og:url"             content="{{ .Site.BaseURL }}">
+
+        <meta name="twitter:card"           content="summary">
+        <meta name="twitter:title"          content="{{ .Site.Title }} - {{ .Site.Params.terms.home_meta_title }}">
+        <meta name="twitter:description"    content="{{ .Site.Params.terms.home_meta_description }}">
+    {{ end }}
+
+    {{ if eq .Page.Type "images" }}
+        <meta name="description" content="{{ .Params.description }}">
+        <link rel="canonical" href="{{ .Permalink }}">
+
+        <meta property="og:title"           content="{{ .Title }}">
+        <meta property="og:description"     content="{{ .Params.description }}">
+        <meta property="og:type"            content="website">
+        <meta property="og:locale"          content="{{ .Site.Params.open_graph_locale }}">
+        <meta property="og:site_name"       content="{{ .Site.Title }}">
+        <meta property="og:url"             content="{{ .Permalink }}">
+
+        <meta property="og:image"               content="{{ .Params.thumbnail }}">
+        <meta property="og:image:secure_url"    content="{{ .Params.thumbnail }}">
+        <meta property="og:image:width"         content="{{ .Params.image_width }}">
+        <meta property="og:image:height"        content="{{ .Params.image_height }}">
+        <meta property="og:image:alt"           content="{{ .Title }}">
+
+        <meta name="twitter:card"           content="summary">
+        <meta name="twitter:title"          content="{{ .Title }}">
+        <meta name="twitter:description"    content="{{ .Params.description }}">
+
+        <meta name="twitter:image"      content="{{ .Params.thumbnail }}">
+        <meta name="twitter:image:alt"  content="{{ .Title }}">
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "{{ .Title }}",
+            "image": [
+                {{ .Params.thumbnail | safeURL }}
+            ]
+        }
+        </script>
+    {{ end }}
+
+    {{ if eq .Type "tags" }}
+        <meta name="description" content="{{ .Title }}">
+        <link rel="canonical" href="{{ .Permalink }}">
+
+        <meta property="og:title"           content="{{ len .Data.Pages }}+ {{ .Title }}">
+        <meta property="og:description"     content="{{ .Title }}">
+        <meta property="og:type"            content="website">
+        <meta property="og:locale"          content="{{ .Site.Params.open_graph_locale }}">
+        <meta property="og:site_name"       content="{{ .Site.Title }}">
+        <meta property="og:url"             content="{{ .Permalink }}">
+
+        <meta name="twitter:card"           content="summary">
+        <meta name="twitter:title"          content="{{ len .Data.Pages }}+ {{ .Title }}">
+        <meta name="twitter:description"    content="{{ .Title }}">
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "{{ len .Data.Pages }}+ {{ .Title }}",
+            "image": [
+            {{ range $index, $pages := first 4 .Data.Pages }}
+                {{- if ne $index 0 }},{{ end }}{{ $pages.Params.thumbnail }}
+            {{ end }}
+            ]
+        }
+        </script>
+    {{ end }}
+
+    {{ $css := resources.Get "css/style.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+    {{ if eq .Page.Type "images" -}}
+        <link rel="stylesheet" href="{{ "vendor/fontawesome/css/all.min.css"  | relURL }}">
+        <script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
+    {{- end }}
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript" >
+	   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+	   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+	   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+	   ym(73393282, "init", {
+	        clickmap:true,
+	        trackLinks:true,
+	        accurateTrackBounce:true
+	   });
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/73393282" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- /Yandex.Metrika counter -->
+	<script type='text/javascript' src='//pl16170009.profitabletrustednetwork.com/70/b5/84/70b5842c89f23dd8d83825e1984b60fe.js'></script>
+</head>

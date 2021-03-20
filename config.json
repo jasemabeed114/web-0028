@@ -1,0 +1,39 @@
+{
+    "baseURL": "https://prod.d3vwug75x9sfnd.amplifyapp.com/",
+    "languageCode": "en",
+    "title": "Blue PNG",
+    "theme": "images",
+    "params": {
+        "open_graph_locale": "en_US",
+        "terms": {
+            "term_home": "Home",
+            "term_random_image": "Random Images",
+            "term_random_keyword": "Random Tags",
+
+            "home_meta_title": "Download Free Wallpapers, Images, and Pictures",
+            "home_h1": "Find Perfect Wallpapers",
+            "home_h1_subtitle": "Explore and download wallpapers for free",
+            "home_meta_description": "Thousands free wallpapers available to download. Find perfect images.",
+
+            "detail_resolution": "Resolution",
+            "detail_source": "Source",
+            "detail_keyword": "Tag",
+            "detail_save": "Download in HD",
+            "detail_other_keywords": "Explore",
+            "detail_share": "Share",
+            "detail_related_images": "Related Images",
+
+            "search_result_subtitle": "Download #q images, pictures, or wallpapers for free.",
+
+            "not_found_title": "404 - Page Not Found",
+            "not_found_paragraph": "This page is lost"
+        }
+    },
+    "permalinks": {
+        "tags": "/:slug"
+    },
+    "disableKinds": [
+        "RSS", "sitemap"
+    ],
+    "enableRobotsTXT": true
+}

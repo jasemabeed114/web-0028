@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" prefix="og: https://ogp.me/ns#">
+    {{ partial "head.html" . }}
+    <body>
+        {{- partial "header.html" . -}}
+        {{- block "main" . }}{{- end }}
+        {{- partial "footer.html" . -}}
+
+        <script src="{{ "vendor/jquery/jquery-3.5.1.min.js" | relURL }}"></script>
+        <script src="{{ "vendor/popper/popper.min.js" | relURL }}"></script>
+        <script src="{{ "vendor/bootstrap/js/bootstrap.min.js" | relURL }}"></script>
+    </body>
+</html>

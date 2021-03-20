@@ -1,0 +1,47 @@
+{{ define "main" }}
+
+<!-- Jumbotron -->
+<div class="container-xl">
+    <div class="jumbotron text-center my-3">
+        <h1>{{ .Site.Params.terms.home_h1 }}</h1>
+        <p>{{ .Site.Params.terms.home_h1_subtitle }}</p>
+    </div>
+</div>
+<!-- [END] Jumbotron -->
+
+<!-- Random images -->
+<div class="py-3 text-center">
+    <div class="container-xl">
+        <h2 class="mb-3">{{ .Site.Params.terms.term_random_image }}</h2>
+
+        <div class="card-columns py-5">
+            {{ range first 24 (shuffle (where .Site.RegularPages "Type" "in" "images")) }}
+                <div class="card text-center content-container">
+                    <a href="{{ .RelPermalink }}">
+                        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="card-img-top" loading="lazy">
+                    </a>
+                    <div class="card-body p-2 content-title">
+                        <a href="{{ .RelPermalink }}">
+                            <span class="text-muted limit-1-lines">{{ .Title }}</span>
+                        </a>
+                    </div>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+<!-- [END] Random images -->
+
+<!-- Random tags -->
+<div class="py-3 text-center">
+    <div class="container-xl">
+        <h2 class="h3 mb-3">{{ .Site.Params.terms.term_random_keyword }}</h2>
+
+        {{ range first 20 .Site.Data.tags | shuffle }}
+            <a href="{{ . | urlize | relURL }}" class="btn btn-sm btn-secondary mb-1">{{ . }}</a>
+        {{ end }}
+    </div>
+</div>
+<!-- [END] Random tags -->
+
+{{ end }}
